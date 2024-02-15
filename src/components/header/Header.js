@@ -12,20 +12,20 @@ const Cart = () => {
 const Header = () => {
 
   return (
-    <header className="flex justify-between items-center">
+    <header className="flex justify-between items-center mb-6">
       <div className=" text-default font-bold">
         FAKE STORE
       </div>
       <nav>
         <ul className="flex space-x-4 items-center">
-          <NavItem text="Home" />
-          <NavItem text="About" />
-          <NavItem text="Products" />
-          <NavItem text="Contacts" />
-          <NavItem text={Cart()} />
+          <NavItem text="Home" link="/"/>
+          <NavItem text="About" link="/about"/>
+          <NavItem text="Products" link="/products"/>
+          <NavItem text="Contacts" link="/contacts"/>
+          <NavItem text={Cart()} link="/cart"/>
         </ul>
       </nav>
-    </header>
+    </header> 
   )
 }
 

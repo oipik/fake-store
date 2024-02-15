@@ -1,11 +1,14 @@
+import { NavLink } from "react-router-dom";
 
-const NavItem = ({ text }) => {
-  const underline = typeof text === 'string' ? "hover:border-b-2" : null; 
+const NavItem = ({ text, link }) => {
+  const setActive = ({isActive}) => isActive ? "border-b-2 text-default border-default" : "";
+
   return (
-    <li className={`cursor-pointer font-semibold border-default hover:text-default transition-all duration-100 ${underline}`}>
-      <a href="#">
+    <li className={`cursor-pointer font-semibold border-default hover:text-default transition-all duration-100`}>
+      <NavLink to={link}
+        className={setActive}>
         {text}
-      </a>
+      </NavLink>
     </li>
   )
 }

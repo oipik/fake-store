@@ -1,9 +1,11 @@
+import { Link } from 'react-router-dom';
+
 import React from 'react'
 import home from "../../images/home.jpg";
 
 const Home = () => {
   return (
-    <section className='flex mt-6'>
+    <section className='flex'>
       <div className='relative w-2/4 text-left mt-12'>
         <h1 className='text-6xl font-black mt-16'>
           Price <br /> Discount
@@ -12,9 +14,9 @@ const Home = () => {
           Spot-on illustration for your website <br />
           landing page and mobile application
         </p>
-        <a href='#' className='inline-block mt-16 bg-default text-white p-3 rounded-full hover:bg-opacity-50 transition-all duration-100'>
+        <Link to="/products" className='inline-block mt-16 bg-default text-white p-3 rounded-full hover:bg-opacity-50 transition-all duration-100'>
           Go Shopping!
-        </a>
+        </Link>
       </div>
       <div className='flex'>
         <img src={home} alt="home img" />
