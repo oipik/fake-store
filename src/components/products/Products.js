@@ -2,15 +2,13 @@ import { useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux';
 import { Link } from "react-router-dom"
 import { fetchProducts } from './productsSlice';
-import { addProduct } from '../cart/cartSlice';
+import { addProduct, updateProduct } from '../cart/cartSlice';
 import Rating from '../Rating';
 
 const Products = () => {
   const dispatch = useDispatch();
   const { products, productsLoadingStatus } = useSelector(state => state.products);
-  // const { productsFromCart } = useSelector(state => state.cart.data);
-
-  // console.log(productsFromCart);
+  const cart = useSelector(state => state.cart.data);
 
   useEffect(() => {
     if (Object.keys(products).length === 0) {
@@ -25,8 +23,15 @@ const Products = () => {
   }
 
   const handleClick = (id) => {
-    const prod = products.find(item => item.id === id);
-    dispatch(addProduct(prod));
+    const cartProduct = cart.find(item => item.id === +id);
+    const count = 1;
+
+    if (cartProduct) {
+      dispatch(updateProduct({id, count}))
+    } else {
+      const prod = products.find(item => item.id === +id);
+      dispatch(addProduct({...prod, count: 1}));
+    }
   }
 
   const renderData = (data) => {
@@ -37,10 +42,10 @@ const Products = () => {
             <div className='pt-4 mx-auto'>
               <img className="rounded-t-lg h-[150px] w-[180px] object-contain" src={image} alt={title} />
             </div>
-            <div className="p-5">
+            <div className="p-5 w-full">
               <h5 className="mb-1 text-sm font-bold tracking-tight text-gray-900 dark:text-white">{title.length <= 55 ? title : title.substring(0, 55) + '...'}</h5>
-              <div className='flex mb-3'>
-                <p className="font-normal text-gray-700 dark:text-gray-400">${price}</p>
+              <div className='mb-3 flex justify-between'>
+                <p className="text-gray-700 dark:text-gray-400">${price}</p>
                 <Rating rating={rating.rate} />
               </div>
             </div>

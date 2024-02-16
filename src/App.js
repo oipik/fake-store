@@ -7,6 +7,7 @@ import Products from "./components/products/Products";
 import Product from "./components/product/Product"
 import Contacts from "./components/contacts/Contacts";
 import Cart from "./components/cart/Cart";
+import Page404 from "./components/Page404/Page404";
 
 function App() {
   return (
@@ -20,7 +21,7 @@ function App() {
           <Route path="/products/:id" element={<Product />} />
           <Route path="/contacts" element={<Contacts />} />
           <Route path="/cart" element={<Cart />} />
-          {/* <Route path="*" element={<404-Page />} />  */}
+          <Route path="*" element={<Page404 />} /> 
         </Routes>
       </Wrapper>
     </Router>

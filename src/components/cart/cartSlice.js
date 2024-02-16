@@ -2,8 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
     data: [],
-    // total: 0,
-    // count: 0,
+    total: 0,
 }
 
 const cartSlice = createSlice({
@@ -11,29 +10,28 @@ const cartSlice = createSlice({
     initialState,
     reducers: {
         addProduct: (state, action) => {
-            console.log(typeof action.payload);
-            console.log(action.payload);
-
             state.data.push(action.payload);
-            console.log(state.data)
+            state.total++;
+        },
+        removeProduct: (state, action) => {
+            state.data = state.data.filter(item => item.id !== action.payload);
+            state.total--;
+        },
+        updateProduct: (state, action) => {
+            const { id, count } = action.payload;
+            state.data = state.data.map(item => {
+                if (item.id === +id) {
+                    return { ...item, count: item.count + count}
+                } else {
+                    return item;
+                }
+            })
         },
     },
-    // extraReducers: builder => {
-    //     builder
-    //         .addCase(fetchProducts.pending, state => { state.productsLoadingStatus = "loading" })
-    //         .addCase(fetchProducts.fulfilled, (state, action) => {
-    //             state.productsLoadingStatus = "idle";
-    //             state.products = action.payload;
-    //         })
-    //         .addCase(fetchProducts.rejected, state => { state.productsLoadingStatus = "error" })
-    //         .addDefaultCase(() => { })
-    // }
 })
 
 const { actions, reducer } = cartSlice;
 
 export default reducer;
 
-export const { addProduct } = actions;
-
-// export const {}
+export const { addProduct, updateProduct, removeProduct } = actions;
