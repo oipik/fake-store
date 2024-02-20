@@ -1,10 +1,16 @@
 import { useSelector, useDispatch } from "react-redux";
 import { removeProduct, updateProduct } from "./cartSlice";
+import { useEffect } from "react";
 import { Link } from "react-router-dom";
 
 const Cart = () => {
   const products = useSelector(state => state.cart.data);
+  const currentCart = useSelector(state => state.cart);
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    localStorage.setItem("cart", JSON.stringify(currentCart))
+ }, [currentCart])
 
   const handleClick = (id, count, counter) => {
     if (count < 0 && counter === 1) dispatch(removeProduct(id));
@@ -40,6 +46,7 @@ const Cart = () => {
         </div>
       </div> : null
     })
+
     return (
       <>
         <div className="w-[500px]">
