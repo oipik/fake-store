@@ -1,7 +1,11 @@
 import NavItem from "../nav-item/NavItem"
 import cart from '../../images/cart.png';
+import mobileMenuIcon from "../../images/icon-menu.svg"
+import closeMenu from "../../images/icon-close-menu.svg"
+import MobileMenu from "../mobileMenu/MobileMenu";
 
 import { useSelector } from "react-redux";
+import { useState } from "react";
 
 const Cart = () => {
   const total = useSelector(state => state.cart.total);
@@ -17,13 +21,14 @@ const Cart = () => {
 }
 
 const Header = () => {
+  const [mobileMenu, setMobileMenu] = useState(false);
 
   return (
     <header className="flex justify-between items-center mb-6">
       <div className=" text-default font-bold">
         FAKE STORE
       </div>
-      <nav>
+      <nav className="hidden md:block">
         <ul className="flex space-x-4 items-center">
           <NavItem text="Home" link="/" />
           <NavItem text="About" link="/about" />
@@ -32,6 +37,10 @@ const Header = () => {
           <NavItem text={Cart()} link="/cart" />
         </ul>
       </nav>
+      <div onClick={() => setMobileMenu(!mobileMenu)} className="md:hidden cursor-pointer z-30">
+        {mobileMenu ? <img src={closeMenu} alt="menu" /> : <img src={mobileMenuIcon} alt="menu" />}
+      </div>
+      <MobileMenu isOpen={mobileMenu} Cart={Cart}/>
     </header>
   )
 }

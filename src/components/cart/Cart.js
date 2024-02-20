@@ -49,10 +49,10 @@ const Cart = () => {
 
     return (
       <>
-        <div className="w-[500px]">
+        <div className="w-full">
           {data}
         </div>
-        <div className="ml-16 min-w-[600px] max-h-20 bg-white border border-gray-200 rounded-lg shadow">
+        <div className="ml-0 md:ml-16 w-full max-h-20 bg-white border border-gray-200 rounded-lg shadow">
           <p className="h-10 font-bold flex justify-center items-center">TOTAL is: {total.toFixed(2)}$</p>
           <Link to="/products" className=" block px-3 py-2 text-sm font-medium text-center text-white bg-default rounded-lg hover:bg-opacity-50">Continue shopping</Link>
         </div>
@@ -63,7 +63,7 @@ const Cart = () => {
   const data = renderProducts(products);
 
   return (
-    <section className="flex ml-32">
+    <section className="flex flex-col md:flex-row">
       {data}
     </section >
   )

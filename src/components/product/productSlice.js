@@ -30,6 +30,6 @@ const productSlice = createSlice({
     }
 })
 
-const { actions, reducer } = productSlice;
+const { reducer } = productSlice;
 
 export default reducer;
