@@ -4,33 +4,32 @@ import { useEffect } from "react";
 
 import Rating from "../Rating";
 import { fetchProduct } from "./productSlice";
-import { addProduct, updateProduct } from '../cart/cartSlice';
+import { addProduct, updateProduct, selectAll } from '../cart/cartSlice';
 
 const Product = () => {
   const { id } = useParams();
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const { product, productLoadingStatus } = useSelector(state => state.product)
   const products = useSelector(state => state.products.products);
 
-  const cart = useSelector(state => state.cart.data);
-  const dispatch = useDispatch()
+  const cart = useSelector(selectAll);
 
   const { title, image, price, description, rating } = product;
 
   useEffect(() => {
     dispatch(fetchProduct(id));
-  }, [])
+  }, [id])
 
   const handleClick = (id) => {
-    const cartProduct = cart.find(item => item.id === +id);
-    const count = 1;
+    const cartProduct = cart.find(item => item.id === id);
 
     if (cartProduct) {
-      dispatch(updateProduct({id, count}))
+      dispatch(updateProduct({ ...cartProduct, count: cartProduct.count + 1 }))
     } else {
-      const prod = products.find(item => item.id === +id);
-      dispatch(addProduct({...prod, count: 1}));
+      const prod = products.find(item => item.id === id);
+      dispatch(addProduct({ ...prod, count: 1 }));
     }
   }
 
@@ -59,7 +58,7 @@ const Product = () => {
           <Rating rating={rate} />
           <p className="my-2">{description}</p>
           <button
-            onClick={() => handleClick(id)}
+            onClick={() => handleClick(+id)}
             className="px-3 py-2 text-sm font-medium text-center text-white bg-default rounded-lg hover:bg-opacity-50">
             Add to cart
           </button>

@@ -1,20 +1,23 @@
 import { useSelector, useDispatch } from "react-redux";
-import { removeProduct, updateProduct } from "./cartSlice";
+import { removeProduct, updateProduct, selectAll } from "./cartSlice";
 import { useEffect } from "react";
 import { Link } from "react-router-dom";
 
 const Cart = () => {
-  const products = useSelector(state => state.cart.data);
-  const currentCart = useSelector(state => state.cart);
+  const products = useSelector(selectAll);
   const dispatch = useDispatch();
 
   useEffect(() => {
-    localStorage.setItem("cart", JSON.stringify(currentCart))
- }, [currentCart])
+    localStorage.setItem("cart", JSON.stringify(products))
+ }, [products])
 
-  const handleClick = (id, count, counter) => {
-    if (count < 0 && counter === 1) dispatch(removeProduct(id));
-    dispatch(updateProduct({ id, count }));
+  const handleClick = (id, number, counter) => {
+    if (number < 0 && counter === 1) {
+      dispatch(removeProduct(id)); 
+    } else {
+      const cartProduct = products.find(prod => prod.id === id);
+      dispatch(updateProduct({ ...cartProduct, count: cartProduct.count + number}))
+    }
   }
 
   const renderProducts = (products) => {

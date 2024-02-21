@@ -3,12 +3,13 @@ import cart from '../../images/cart.png';
 import mobileMenuIcon from "../../images/icon-menu.svg"
 import closeMenu from "../../images/icon-close-menu.svg"
 import MobileMenu from "../mobileMenu/MobileMenu";
+import { selectTotal } from "../cart/cartSlice";
 
 import { useSelector } from "react-redux";
 import { useState } from "react";
 
 const Cart = () => {
-  const total = useSelector(state => state.cart.total);
+  const total = useSelector(selectTotal);
 
   return (
     <div className="relative bg-default rounded-full w-8 h-8 flex justify-center items-center hover:bg-opacity-50 transition-all duration-100">
