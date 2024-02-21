@@ -4,10 +4,11 @@ import { Link } from "react-router-dom"
 import { fetchProducts } from './productsSlice';
 import { addProduct, updateProduct } from '../cart/cartSlice';
 import Rating from '../Rating';
+import Filters from './filter';
 
 const Products = () => {
   const dispatch = useDispatch();
-  const { products, productsLoadingStatus } = useSelector(state => state.products);
+  const { products, productsLoadingStatus, activeFilter } = useSelector(state => state.products);
   const cart = useSelector(state => state.cart.data);
 
   useEffect(() => {
@@ -27,17 +28,24 @@ const Products = () => {
     const count = 1;
 
     if (cartProduct) {
-      dispatch(updateProduct({id, count}))
+      dispatch(updateProduct({ id, count }))
     } else {
       const prod = products.find(item => item.id === +id);
-      dispatch(addProduct({...prod, count: 1}));
+      dispatch(addProduct({ ...prod, count: 1 }));
     }
   }
 
   const renderData = (data) => {
-    return data.map(({ id, image, title, price, rating }) => {
+    return data.filter((item) => {
+      if (activeFilter === item.category) {
+        return item;
+      } else if (activeFilter === "All") {
+        return item;
+      }
+    })
+    .map(({ id, image, title, price, rating }) => {
       return (
-        <div key={id} className=" relative w-[300px] h-[350px] bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+        <div key={id} className=" relative max-w-[300px] h-[350px] bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
           <Link to={`/products/${id}`} className='flex flex-wrap'>
             <div className='pt-4 mx-auto'>
               <img className="rounded-t-lg h-[150px] w-[180px] object-contain" src={image} alt={title} />
@@ -63,8 +71,14 @@ const Products = () => {
   const data = renderData(products);
 
   return (
-    <section className='flex flex-wrap gap-10 justify-center'>
-      {data}
+    <section className=''>
+      <div>
+        <Filters />
+      </div>
+      <div className='flex flex-wrap gap-10 justify-center'>
+        {data}
+      </div>
+
     </section>
   )
 }

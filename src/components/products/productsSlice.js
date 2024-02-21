@@ -3,6 +3,14 @@ import { useHttp } from "../../hooks/useHttp"
 
 const initialState = {
     products: [],
+    filters: [
+        {id: 1, name: "All", label: "All"},
+        {id: 2, name: "electronics", label: "Electronics"},
+        {id: 3, name: "jewelery", label: "Jewelery"},
+        {id: 4, name: "men's clothing", label: "Men"},
+        {id: 5, name: "women's clothing", label: "Women"},
+    ],
+    activeFilter: "All",
     productsLoadingStatus: "idle",
 }
 
@@ -17,7 +25,11 @@ export const fetchProducts = createAsyncThunk(
 const productsSlice = createSlice({
     name: "products",
     initialState,
-    reducers: {},
+    reducers: {
+        changeActiveFilter: (state, action) => {
+            state.activeFilter = action.payload;
+        }
+    },
     extraReducers: builder => {
         builder
             .addCase(fetchProducts.pending, state => { state.productsLoadingStatus = "loading" })
@@ -30,6 +42,7 @@ const productsSlice = createSlice({
     }
 })
 
-const { reducer } = productsSlice;
+const { reducer, actions } = productsSlice;
 
+export const { changeActiveFilter } = actions;
 export default reducer;
