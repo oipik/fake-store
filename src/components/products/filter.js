@@ -1,12 +1,12 @@
 import { useSelector, useDispatch } from 'react-redux';
 import { changeActiveFilter } from './productsSlice';
 
-const Filters = () => {
+const Filter = () => {
   const { filters, activeFilter } = useSelector(state => state.products);
   const dispatch = useDispatch();
 
   return (
-    <div className='ml-10'>
+    <div className='md:ml-[360px]'>
       {filters.map(({ id, name, label }) => (
         <div
           onClick={() => dispatch(changeActiveFilter(name))}
@@ -19,4 +19,4 @@ const Filters = () => {
   )
 }
 
-export default Filters
+export default Filter;

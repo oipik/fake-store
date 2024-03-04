@@ -7,7 +7,7 @@ import Products from "./components/products/Products";
 import Product from "./components/product/Product"
 import Contacts from "./components/contacts/Contacts";
 import Cart from "./components/cart/Cart";
-import Page404 from "./components/Page404/Page404";
+import Page404 from "./components/page404/Page404";
 
 function App() {
   return (

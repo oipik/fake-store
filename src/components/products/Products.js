@@ -1,12 +1,15 @@
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux';
 import { Link } from "react-router-dom"
 import { fetchProducts } from './productsSlice';
 import { addProduct, selectAll, updateProduct } from '../cart/cartSlice';
 import Rating from '../Rating';
-import Filters from './filter';
+import Filter from './Filter';
 
 const Products = () => {
+  const [checked, setChecked] = useState(false);
+  const [search, setSearch] = useState("");
+
   const dispatch = useDispatch();
   const { products, productsLoadingStatus, activeFilter } = useSelector(state => state.products);
   const cart = useSelector(selectAll);
@@ -15,6 +18,7 @@ const Products = () => {
     if (Object.keys(products).length === 0) {
       dispatch(fetchProducts());
     }
+    // eslint-disable-next-line
   }, [])
 
   if (productsLoadingStatus === "loading") {
@@ -36,11 +40,9 @@ const Products = () => {
 
   const renderData = (data) => {
     return data.filter((item) => {
-      if (activeFilter === item.category) {
-        return item;
-      } else if (activeFilter === "All") {
-        return item;
-      }
+      if (activeFilter === item.category) return item;
+      if (activeFilter === "All") return item;
+      else return null;
     })
       .map(({ id, image, title, price, rating }) => {
         return (
@@ -67,15 +69,43 @@ const Products = () => {
       })
   }
 
-  const data = renderData(products);
+  const filterData = (data, search) => {
+    if (search === "") return data;
+    return data.filter(item => item.title.includes(search));
+  }
+
+  const ratingData = checked ? products.filter(({ rating }) => rating.rate >= 4) : products;
+  const data = renderData(filterData(ratingData, search));
 
   return (
-    <section className=''>
+    <section>
       <div>
-        <Filters />
+        <Filter />
       </div>
-      <div className='flex flex-wrap gap-10 justify-center'>
-        {data}
+      <div className='md:flex'>
+        <div className='max-w-80 w-full md:min-w-80 mr-8 mb-5'>
+          <div className='mb-4'>
+            <input
+              onChange={(e) => setSearch(e.target.value)}
+              className='bg-white w-full border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 p-2 px-4'
+              type="text"
+              placeholder="Search by category" />
+          </div>
+
+          <div>
+            <label className="flex items-center" htmlFor="higherfour">
+              <input
+                onChange={() => setChecked(checked => !checked)}
+                className={`w-4 h-4 mr-2`}
+                type="checkbox"
+                id='higherfour' />
+              <span>Рейтинг 4 и выше</span>
+            </label>
+          </div>
+        </div>
+        <div className='flex flex-wrap gap-10 justify-center md:justify-normal'>
+          {data}
+        </div>
       </div>
 
     </section>
