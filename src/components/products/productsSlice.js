@@ -4,14 +4,17 @@ import { useHttp } from "../../hooks/useHttp"
 const initialState = {
     products: [],
     filters: [
-        {id: 1, name: "All", label: "All"},
-        {id: 2, name: "electronics", label: "Electronics"},
-        {id: 3, name: "jewelery", label: "Jewelery"},
-        {id: 4, name: "men's clothing", label: "Men"},
-        {id: 5, name: "women's clothing", label: "Women"},
+        { id: 1, name: "All", label: "All" },
+        { id: 2, name: "electronics", label: "Electronics" },
+        { id: 3, name: "jewelery", label: "Jewelery" },
+        { id: 4, name: "men's clothing", label: "Men" },
+        { id: 5, name: "women's clothing", label: "Women" },
     ],
     activeFilter: "All",
-    productsLoadingStatus: "idle",
+    productsLoadingStatus: "",
+    itemOffset: 0,
+    currentPage: 0,
+    itemsPerPage: 6,
 }
 
 export const fetchProducts = createAsyncThunk(
@@ -28,7 +31,13 @@ const productsSlice = createSlice({
     reducers: {
         changeActiveFilter: (state, action) => {
             state.activeFilter = action.payload;
-        }
+        },
+        changeItemOffset: (state, action) => {
+            state.itemOffset = action.payload;
+        },
+        changeCurrentPage: (state, action) => {
+            state.currentPage = action.payload;
+        },
     },
     extraReducers: builder => {
         builder
@@ -44,5 +53,5 @@ const productsSlice = createSlice({
 
 const { reducer, actions } = productsSlice;
 
-export const { changeActiveFilter } = actions;
+export const { changeActiveFilter, changeItemOffset, changeCurrentPage } = actions;
 export default reducer;
