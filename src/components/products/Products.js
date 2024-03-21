@@ -103,7 +103,7 @@ const Products = () => {
         <Filter />
       </div>
       <div className='md:flex'>
-        <div className='max-w-80 w-full md:min-w-80 mr-8 mb-5'>
+        <div className='flex items-baseline flex-wrap w-full md:block md:w-0 md:min-w-80 mr-8 mb-5'>
           <div className='mb-4'>
             <input
               onChange={(e) => setSearch(e.target.value)}
@@ -111,7 +111,7 @@ const Products = () => {
               type="text"
               placeholder="Search by category" />
           </div>
-          <div>
+          <div className='ml-3 md:ml-0 '>
             <label className="flex items-center" htmlFor="higherfour">
               <input
                 onChange={() => setChecked(checked => !checked)}

@@ -1,14 +1,15 @@
 import StarRatings from "react-star-ratings"
 
-const Rating = ({rating = 0}) => {
+const Rating = ({rating, onChange = null}) => {
   return (
     <StarRatings 
     rating={rating}
     starRatedColor="gold"
     numberOfStars={5}
-    starDimension="20px"
+    starDimension={`${onChange !== null ? '30px' : '20px'}`}
     name='rating'
-    starSpacing="1px"/>
+    starSpacing="1px"
+    changeRating={onChange !== null ? onChange : null}/>
   )
 }
 
