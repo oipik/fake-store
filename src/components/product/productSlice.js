@@ -3,7 +3,32 @@ import { useHttp } from "../../hooks/useHttp"
 
 const initialState = {
     product: {},
-    reviews: [],
+    reviews: [
+        {
+            "product": 1,
+            "id": 1,
+            "name": "Екатерина",
+            "date": "Date and time",
+            "description": "Покупала маме, она очень довольна. Всё работает.",
+            "rating": 5
+        },
+        {
+            "product": 1,
+            "id": 2,
+            "name": "Ann",
+            "date": "Date and time",
+            "description": "I bought it yesterday. And it is winderful thing",
+            "rating": 5
+        },
+        {
+            "product": 1,
+            "id": 3,
+            "name": "Мария",
+            "date": "Date and time",
+            "description": "Хороший товар, не тупит, все пришло в целостности, для ребёнка самое то по такой цене.",
+            "rating": 5
+        },
+    ],
     productLoadingStatus: "idle",
     reviewsLoadingStatus: "idle"
 }
@@ -43,7 +68,6 @@ const productSlice = createSlice({
                 state.reviews = action.payload;
             })
             .addCase(fetchReviews.rejected, state => { state.reviewsLoadingStatus = "error" })
-
             .addDefaultCase(() => { })
     }
 })
