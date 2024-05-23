@@ -1,3 +1,7 @@
+1. Для запуска проекта необходимо установить все зависимости.
+2. Для подгрузки отзывов используется файл reviews.json на 3001 порту. 
+3. После установки всех зависимостей команда для запуска npm start. Параллельно с этой командой запускается команда "npx json-server reviews.json --port 3001", библиотеки concurrently для подрузки отзывов.
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
