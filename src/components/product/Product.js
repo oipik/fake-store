@@ -31,7 +31,7 @@ const Product = () => {
   }, [id])
 
   useEffect(() => {
-    if (showReviews && reviews.length === 0) {
+    if (showReviews) {
       dispatch(fetchReviews());
     }
     // eslint-disable-next-line
@@ -109,7 +109,7 @@ const Product = () => {
       {
         isModal ?
           <Portal>
-            <Modal product={product} setIsModal={setIsModal} setSuccessSendReview={setSuccessSendReview} showReviews={showReviews}/>
+            <Modal product={product} setIsModal={setIsModal} setSuccessSendReview={setSuccessSendReview} showReviews={showReviews} />
           </Portal> : null
       }
     </section>
