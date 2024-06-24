@@ -41,7 +41,7 @@ const Header = () => {
       <div onClick={() => setMobileMenu(!mobileMenu)} className="md:hidden cursor-pointer z-30">
         {mobileMenu ? <img src={closeMenu} alt="menu" /> : <img src={mobileMenuIcon} alt="menu" />}
       </div>
-      <MobileMenu isOpen={mobileMenu} Cart={Cart}/>
+      <MobileMenu isOpen={mobileMenu} setMobileMenu={setMobileMenu} Cart={Cart} />
     </header>
   )
 }
