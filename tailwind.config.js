@@ -1,7 +1,6 @@
 /** @type {import('tailwindcss').Config} */
-// import avatar from "./src/images/review.svg"
 module.exports = {
-  content: ["./src/**/*.{html,js}"],
+  content: ["./src/**/*.{js,jsx,ts,tsx}"],
   theme: {
     screens: {
       'sm': '500px',
@@ -21,4 +20,3 @@ module.exports = {
   },
   plugins: [],
 }
-
