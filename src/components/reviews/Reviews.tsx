@@ -1,6 +1,7 @@
 import { useGetReviewsQuery } from "../../store/reducers/reviews.api";
 import { IReview } from "../../models/types";
 import { getRandomDate } from "../../services/getRandomDate";
+import { memo } from "react";
 
 import avatar from "../../images/avatar.png";
 import Rating from "../rating/Rating";
@@ -10,12 +11,12 @@ interface IReviewProps {
   productID: string;
 }
 
-const Review: React.FC<IReviewProps> = ({ productID }) => {
+const Review: React.FC<IReviewProps> = memo(({ productID }) => {
 
   const { data: reviews, isLoading, isFetching, isError } = useGetReviewsQuery(productID);
 
   const getReviews = (reviews: IReview[]) => {
-    const review = reviews.map(({ postId, id, name, email, body }) => {
+    const review = reviews.map(({ postId, id, name, body }) => {
       return postId === +productID ? <div className="" key={id}>
         <div className="block sm:flex-nowrap m-7 sm:flex justify-between">
           <div className="flex-wrap sm:flex-nowrap flex w-full">
@@ -41,6 +42,6 @@ const Review: React.FC<IReviewProps> = ({ productID }) => {
         reviews?.length ? getReviews(reviews) : null}
     </section>
   )
-}
+})
 
 export default Review;

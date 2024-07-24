@@ -1,3 +1,4 @@
+import { memo } from 'react';
 import StarRatings from 'react-star-ratings';
 
 interface IRatingProps {
@@ -5,7 +6,7 @@ interface IRatingProps {
   onChange?: (value: number) => void;
 }
 
-const Rating: React.FC<IRatingProps> = ({ rating, onChange }) => {
+const Rating: React.FC<IRatingProps> = memo(({ rating, onChange }) => {
   return (
     <StarRatings
       rating={rating}
@@ -16,6 +17,6 @@ const Rating: React.FC<IRatingProps> = ({ rating, onChange }) => {
       starSpacing="1px"
       changeRating={onChange} />
   )
-};
+});
 
 export default Rating;

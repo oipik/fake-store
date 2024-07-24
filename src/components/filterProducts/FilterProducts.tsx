@@ -1,3 +1,4 @@
+import { memo, useMemo } from 'react';
 import { useAppDispatch, useAppSelector } from '../../services/useTypedSelector';
 import { changeActiveFilter } from '../../store/reducers/products.slice';
 
@@ -7,17 +8,19 @@ interface IFilterProducts {
   label: string;
 }
 
-const FilterProducts: React.FC = () => {
+const FilterProducts: React.FC = memo(() => {
   const activeFilter = useAppSelector(state => state.products.activeFilter);
   const dispatch = useAppDispatch();
 
-  const filters: IFilterProducts[] = [
-    { id: 1, name: "All", label: "All" },
-    { id: 2, name: "electronics", label: "Electronics" },
-    { id: 3, name: "jewelery", label: "Jewelery" },
-    { id: 4, name: "men's clothing", label: "Men" },
-    { id: 5, name: "women's clothing", label: "Women" },
-  ];
+  const filters: IFilterProducts[] = useMemo(() => (
+    [
+      { id: 1, name: "All", label: "All" },
+      { id: 2, name: "electronics", label: "Electronics" },
+      { id: 3, name: "jewelery", label: "Jewelery" },
+      { id: 4, name: "men's clothing", label: "Men" },
+      { id: 5, name: "women's clothing", label: "Women" },
+    ]
+  ), [])
 
   const handleChangeFilter = (name: string) => {
     dispatch(changeActiveFilter(name));
@@ -38,6 +41,6 @@ const FilterProducts: React.FC = () => {
       ))}
     </div >
   )
-}
+});
 
 export default FilterProducts;

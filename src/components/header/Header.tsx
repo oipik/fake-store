@@ -1,12 +1,12 @@
 import { useAppSelector } from "../../services/useTypedSelector";
 import { useState } from "react";
+import { Link } from "react-router-dom";
 
 import NavItem from "../nav-item/NavItem";
 import cart from '../../images/cart.png';
 import mobileMenuIcon from "../../images/icon-menu.svg";
 import closeMenu from "../../images/icon-close-menu.svg";
 import MobileMenu from "../mobileMenu/MobileMenu";
-import { Link } from "react-router-dom";
 
 const Cart: React.FC = () => {
   const total = useAppSelector(state => state.cart.cart);

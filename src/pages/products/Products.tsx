@@ -4,6 +4,7 @@ import { useNavigate, useSearchParams } from 'react-router-dom';
 import { IProduct } from '../../models/types';
 import { useAppDispatch, useAppSelector } from '../../services/useTypedSelector';
 import { addProduct, updateProduct } from '../../store/reducers/cart.slice';
+import { useDebounce } from '../../services/useDebounce';
 
 import Paginate from '../../components/paginate/Paginate';
 import FilterProducts from '../../components/filterProducts/FilterProducts';
@@ -12,6 +13,7 @@ import Card from '../../components/card/Card';
 const Products: React.FC = () => {
   const [checked, setChecked] = useState(false);
   const [search, setSearch] = useState("");
+  const debounce = useDebounce(search, 300);
 
   const [searchParams] = useSearchParams();
   const page = Number(searchParams.get('page') || '1');
@@ -32,13 +34,13 @@ const Products: React.FC = () => {
   }, [page, navigate])
 
   useEffect(() => {
-    if (activeFilter !== 'All' || search !== "" || checked !== false) navigate(`?page=1`);
+    if (activeFilter !== 'All' || debounce !== "" || checked !== false) navigate(`?page=1`);
     // eslint-disable-next-line
-  }, [activeFilter, search, checked])
+  }, [activeFilter, debounce, checked])
 
   const handlePageClick = ({ selected }: { selected: number }) => {
     navigate(`?page=${selected + 1}`);
-  };
+  }
 
   const handleUpdateCart = (id: number) => {
     const cartProduct = cart.find(item => item.id === id);
@@ -67,14 +69,14 @@ const Products: React.FC = () => {
     ))
   }
 
-  const filterData = (data: IProduct[], search: string) => {
-    if (search === "") return data;
-    const getData = data.filter(item => item.title.includes(search));
+  const filterData = (data: IProduct[], debounce: string) => {
+    if (debounce === "") return data;
+    const getData = data.filter(item => item.title.includes(debounce));
     return getData;
   }
 
   const productsByFilter = checked ? data.filter(({ rating }) => rating.rate >= 4) : data;
-  const products = getProducts(filterData(productsByFilter, search));
+  const products = getProducts(filterData(productsByFilter, debounce));
 
   return (
     <section>

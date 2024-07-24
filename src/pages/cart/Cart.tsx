@@ -1,4 +1,3 @@
-import { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../services/useTypedSelector";
 import { ICountExtend, removeProduct, updateProduct } from "../../store/reducers/cart.slice";
@@ -6,10 +5,6 @@ import { ICountExtend, removeProduct, updateProduct } from "../../store/reducers
 const Cart: React.FC = () => {
   const products = useAppSelector(state => state.cart.cart);
   const dispatch = useAppDispatch();
-
-  useEffect(() => {
-    localStorage.setItem("cart", JSON.stringify(products));
-  }, [products])
 
   const handleUpdateCart = (id: number, number: number, counter?: number) => {
     if (number < 0 && counter === 1) {

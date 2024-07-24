@@ -1,5 +1,6 @@
 import { IProduct } from '../../models/types';
 import { Link } from 'react-router-dom';
+import { memo } from 'react';
 import Rating from '../rating/Rating';
 
 interface ICardProps {
@@ -7,7 +8,7 @@ interface ICardProps {
   handleUpdateCart: (id: number) => void;
 }
 
-const Card: React.FC<ICardProps> = ({ product, handleUpdateCart }) => {
+const Card: React.FC<ICardProps> = memo(({ product, handleUpdateCart }) => {
   const { id, title, image, rating, price } = product;
 
   return (
@@ -39,6 +40,6 @@ const Card: React.FC<ICardProps> = ({ product, handleUpdateCart }) => {
       </button>
     </div>
   )
-}
+})
 
 export default Card;

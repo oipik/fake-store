@@ -1,3 +1,4 @@
+import { memo } from "react";
 import ReactPaginate from "react-paginate";
 
 interface IPaginateProps {
@@ -6,7 +7,7 @@ interface IPaginateProps {
   handlePageClick: ({ selected }: { selected: number }) => void;
 }
 
-const Paginate: React.FC<IPaginateProps> = ({ initialPage, pageCount, handlePageClick }) => {
+const Paginate: React.FC<IPaginateProps> = memo(({ initialPage, pageCount, handlePageClick }) => {
   return (
     <ReactPaginate
       previousLabel={"Previous"}
@@ -20,6 +21,6 @@ const Paginate: React.FC<IPaginateProps> = ({ initialPage, pageCount, handlePage
       forcePage={initialPage}
     />
   )
-}
+});
 
 export default Paginate;
