@@ -5,7 +5,6 @@ import { Link } from "react-router-dom";
 import NavItem from "../nav-item/NavItem";
 import cart from '../../images/cart.png';
 import mobileMenuIcon from "../../images/icon-menu.svg";
-import closeMenu from "../../images/icon-close-menu.svg";
 import MobileMenu from "../mobileMenu/MobileMenu";
 
 const Cart: React.FC = () => {
@@ -47,9 +46,9 @@ const Header: React.FC = () => {
       </nav>
       <div
         onClick={() => setMobileMenu(!mobileMenu)}
-        className="md:hidden cursor-pointer z-30"
+        className="md:hidden cursor-pointer"
       >
-        {mobileMenu ? <img src={closeMenu} alt="menu" /> : <img src={mobileMenuIcon} alt="menu" />}
+        <img src={mobileMenuIcon} alt="menu" />
       </div>
       <MobileMenu isOpen={mobileMenu} setMobileMenu={setMobileMenu} Cart={Cart} />
     </header>

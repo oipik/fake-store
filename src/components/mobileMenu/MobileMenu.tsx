@@ -1,4 +1,5 @@
 import NavItem from "../nav-item/NavItem";
+import closeMenu from "../../images/icon-close-menu.svg";
 
 interface IMobileMenuProps {
   isOpen?: boolean;
@@ -15,10 +16,13 @@ const MobileMenu: React.FC<IMobileMenuProps> = ({ isOpen = false, setMobileMenu,
         ${isOpen ? 'flex' : 'hidden'} block md:hidden`}
       />
       <div
-        className={`fixed right-0 top-0 w-1/2 bg-white z-20 justify-center min-h-[150vh] 
-        ${isOpen ? 'flex' : 'hidden'} block md:hidden`}
+        className={`fixed transition-all duration-1000 right-0 top-0 w-1/2 bg-white z-20 justify-center min-h-[150vh] 
+        ${isOpen ? 'translate-x-0' : 'translate-x-full'} block md:hidden`}
       >
-        <nav className="my-20 mx-5 space-y-5 text-lg w-full">
+        <div className='flex justify-end mt-[25px] mr-4'>
+          <img onClick={() => setMobileMenu(!isOpen)} className='w-[25px] h-[25px] cursor-pointer' src={closeMenu} alt="menu" />
+        </div>
+        <nav className="my-8 mx-5 space-y-5 text-lg w-full">
           <ul className="flex flex-col space-y-5 p-2">
             <NavItem text="Home" link="/" />
             <NavItem text="About" link="/about" />
